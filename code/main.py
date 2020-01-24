@@ -2,9 +2,10 @@ import sys
 import numpy as np
 import time
 
-from solve_lp import solve_lp
-from solve_spi import solve_spi
-from solve_rpi import solve_rpi
+from solve_spi import * 
+from solve_lp import *
+#from solve_spi import solve_spi
+from solve_rpi import *
 
 def Reverse(lst): 
     return [ele for ele in reversed(lst)] 

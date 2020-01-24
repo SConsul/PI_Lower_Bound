@@ -1,5 +1,5 @@
 import numpy as np
-from main import calculate_value_function, calculate_Q_matrix, Reverse
+from main import *
 
 def solve_spi(num_states, num_actions, reward_function, transition_function, discount_factor, type_mdp):
 	#Choose random Policy to begin the iteration
@@ -13,7 +13,6 @@ def solve_spi(num_states, num_actions, reward_function, transition_function, dis
 		Q_matrix = calculate_Q_matrix(num_states, num_actions, reward_function, transition_function, value_function, discount_factor, type_mdp)
 			
 		improvable_policy = []
-		Q[np.arange(4),policy[np.arange(4)]]
 
 		for it in range(num_states):
 			col = np.squeeze(Q_matrix[it, :])
@@ -48,7 +47,7 @@ def solve_spi(num_states, num_actions, reward_function, transition_function, dis
 		p_top = p[0:S]
 		p_top.append(p[-1])
 		p_bottom = p[S:-1]
-		print("Current:", p_top, "Value function:", vfcn_top)
+		#print("Current:", p_top, "Value function:", vfcn_top)
 		# print("        ", p_bottom, "               ", vfcn_bottom)
 		if policy == next_policy:
 		    optimized = True
@@ -56,5 +55,6 @@ def solve_spi(num_states, num_actions, reward_function, transition_function, dis
 		    num_iterations = num_iterations+1
 		    policy = next_policy
 	for iter in range(num_states):
-		print(str(value_function[iter].item()) + " " + str(policy[iter]))
+		pass
+		#print(str(value_function[iter].item()) + " " + str(policy[iter]))
 	print("Total Number of Iterations: "+str(num_iterations))

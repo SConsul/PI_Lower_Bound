@@ -1,6 +1,5 @@
 import numpy as np
-from main import calculate_value_function, calculate_Q_matrix, Reverse
-
+from main import *
 def solve_rpi(num_states, num_actions, reward_function, transition_function, discount_factor, type_mdp):
 	#Choose random Policy to begin the iteration
 	num_iterations = 0
