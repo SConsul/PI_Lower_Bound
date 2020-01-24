@@ -82,13 +82,13 @@ def calculate_value_function(policy, num_states, num_actions, transition_functio
 def calculate_Q_matrix(num_states, num_actions, reward_function, transition_function, value_function, discount_factor, type_mdp):
 	# return np.random.randn(num_states, num_actions)
 	value_function = value_function.reshape(num_states)
-	Q_matrix = np.zeros((num_states, num_actions))
-	for iter_state in range(num_states):
-		for iter_action in range(num_actions):
-			# sum_val = 0
-			# for iter_state_prime in range(num_states):
-			# 	sum_val += transition_function[iter_state][iter_action][iter_state_prime]*(reward_function[iter_state][iter_action][iter_state_prime] + discount_factor*value_function[iter_state_prime])
-			Q_matrix[iter_state, iter_action] = np.dot(transition_function[iter_state][iter_action], reward_function[iter_state][iter_action] + discount_factor*value_function)
+	Q_matrix = (transition_function * reward_function).sum(axis = 2) + discount_factor * np.dot(transition_function, value_function)
+	# for iter_state in range(num_states):
+	# 	for iter_action in range(num_actions):
+	# 		# sum_val = 0
+	# 		# for iter_state_prime in range(num_states):
+	# 		# 	sum_val += transition_function[iter_state][iter_action][iter_state_prime]*(reward_function[iter_state][iter_action][iter_state_prime] + discount_factor*value_function[iter_state_prime])
+	# 		Q_matrix[iter_state, iter_action] = np.dot(transition_function[iter_state][iter_action], reward_function[iter_state][iter_action] + discount_factor*value_function)
 	return Q_matrix	
 
 
