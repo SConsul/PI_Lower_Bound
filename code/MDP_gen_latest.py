@@ -4,19 +4,19 @@ import os
 gamma = 1
 types = "episodic"
 n_sinks = 2
-top_dir_path = "../MDP_files_2"
+top_dir_path = "../MDP_files"
 if not os.path.isdir(top_dir_path):
     os.mkdir(top_dir_path)
-top_dir_path = top_dir_path+"/SPI"
+top_dir_path = top_dir_path+"/SPI_new"
 
 if not os.path.isdir(top_dir_path):
     os.mkdir(top_dir_path)
 
-for n_actions in range(4, 5):
+for n_actions in range(2, 11):
     dir_path = top_dir_path + "/{}_action_MDP".format(n_actions)
     if not os.path.isdir(dir_path):
         os.mkdir(dir_path)
-    for n_states in range(2, 3):
+    for n_states in range(2, 11):
         # Define Parameters of MDP
         # n_actions = 4
         # n_states = 4
