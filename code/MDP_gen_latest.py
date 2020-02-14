@@ -7,7 +7,7 @@ n_sinks = 2
 top_dir_path = "../MDP_files"
 if not os.path.isdir(top_dir_path):
     os.mkdir(top_dir_path)
-top_dir_path = top_dir_path+"/SPI"
+top_dir_path = top_dir_path+"/SPI_new"
 
 if not os.path.isdir(top_dir_path):
     os.mkdir(top_dir_path)
@@ -43,6 +43,7 @@ for n_actions in range(2, 11):
 
         # Main states setting
         p = np.linspace(0, n_actions-1, n_actions)
+        p[1:]+=1 # So that probabilities for action > 1 start from 1/4
         p = -1*p
         p = pow(2, p)  # Geometric probabilities
         T[n_states+2][0][0] = 1
