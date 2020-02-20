@@ -112,7 +112,9 @@ int main(int argc, char * argv[])
 	for (int i = 0 ; i < numStates ; i ++)
 		for (int j = 0 ; j < numActions ; j ++)
 			for (int k = 0 ; k < numStates ; k ++)
+			{
 				file >> rewards[i][j][k];
+			}
 	file.close();
 	// Since this is a deterministic MDP, construct the nextState table directly
 	vector<vector<int> > nextStates(numStates, vector<int>(numActions, -1));
@@ -127,8 +129,14 @@ int main(int argc, char * argv[])
 	///////////////////////////////////////////// SOVLER LOOP /////////////////////////////////////////////
 	// Initialize the start policy
 	int rawPolicy[numStates];
-	for (int i = 0 ; i < numStates - 1 ; i ++) rawPolicy[i] = 0;
-	rawPolicy[numStates - 1] = 1;
+	for (int i = 0 ; i < numStates - 2 ; i ++) rawPolicy[i] = 0;
+	rawPolicy[numStates - 2] = 1;
+	rawPolicy[numStates - 1] = 0;
+
+	cout<<"Initial Policy: ";
+	for (int i = 0 ; i < numStates ; i ++)
+		cout<<rawPolicy[i]<<" ";
+	cout<<endl;
 
 	Q q[numStates][numActions];
 	bool improvable = true;
@@ -167,14 +175,24 @@ int main(int argc, char * argv[])
 		for (int i = 0 ; i < numStates ; i ++) newRawPolicy[i] = rawPolicy[i];
 		for (int currentState = 0 ; currentState < numStates ; currentState ++)
 		{
+			// for (int action = 0 ; action < numActions ; action ++)
+			// {
+			// 	if (q[currentState][action] > q[currentState][newRawPolicy[currentState]])
+			// 	{
+			// 		improvable = true;
+			// 		newRawPolicy[currentState] = action;
+			// 	}
+			// }
+			// for (int action = numActions - 1 ; action >= 0 ; action --)
 			for (int action = 0 ; action < numActions ; action ++)
 			{
 				if (q[currentState][action] > q[currentState][newRawPolicy[currentState]])
 				{
 					improvable = true;
 					newRawPolicy[currentState] = action;
+					break;
 				}
-			}
+			}	
 		}
 		for(int i = 0 ; i < numStates ; i ++)
 			rawPolicy[i] = newRawPolicy[i];
