@@ -21,7 +21,7 @@ for n_actions in range(min_actions, max_actions):
         os.mkdir(dir_path)
     for n_states in range(min_states, max_states):
         # Define Parameters of MDP
-        S = 2*n_states-1
+        S = 2*n_states
         A = n_actions
         R = np.zeros((S, A, S))
         T = np.zeros((S, A, S))
@@ -34,16 +34,20 @@ for n_actions in range(min_actions, max_actions):
         for s in range(0, S-2, 2):
             for a in range(A):
                 if a == 0:
-                    T[s][a][s+1] = 1
-                    R[s][a][s+1] = 0
+                    T[s][a][s+3] = 1
+                    R[s][a][s+3] = 0
                 else:
                     T[s][a][s+2] = 1
                     R[s][a][s+2] = ((s/2)*(n_actions-1)+1)*a
 
         for s in range(1, S-1, 2):
             for a in range(A):
-                T[s][a][s+1] = 1
-                R[s][a][s+1] = (((s-1)/2)*(n_actions-1)+1)*a
+                if a == 0:
+                    T[s][a][s+2] = 1
+                    R[s][a][s+2] = 0
+                else:
+                    T[s][a][s+1] = 1
+                    R[s][a][s+1] = (((s-1)/2)*(n_actions-1)+1)*a
 
         # Generate MDP file
         filename = os.path.join(dir_path, "MDP_{}s_{}a_adv.txt".format(n_states, n_actions))

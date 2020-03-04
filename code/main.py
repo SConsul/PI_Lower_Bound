@@ -3,11 +3,11 @@ import numpy as np
 import time
 
 from solve_spi import *
-from solve_lp import *
+# from solve_lp import *
 from solve_hpi import *
 #from solve_spi import solve_spi
 from solve_rpi import *
-from solve_adv import *
+from solve_adv_new import *
 
 
 def Reverse(lst):
