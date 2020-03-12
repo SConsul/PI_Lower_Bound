@@ -7,7 +7,7 @@ from solve_spi import *
 from solve_hpi import *
 #from solve_spi import solve_spi
 from solve_rpi import *
-from solve_adv_new import *
+from solve_adv import *
 
 
 def Reverse(lst):
