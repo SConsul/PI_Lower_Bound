@@ -54,7 +54,7 @@ for n_actions in range(2, 11):
             T[n_states+2][a][2] = 1
             #T[n_states+2][a][0] = 1-p[a-1]
             #Decrease rewards as a increases
-            R[n_states+2][a][2] = p[a-1]
+            R[n_states+2][a][2] = p[a-1]*10e-5
             
         for s in range(n_states+3, S):
             for a in range(1, n_actions):
@@ -63,7 +63,7 @@ for n_actions in range(2, 11):
                 #sPrime = s-1
                 T[s][a][sPrime] = 1
                 #Decrease rewards as a increases
-                R[s][a][sPrime] = p[a-1]
+                R[s][a][sPrime] = p[a-1]*10e-5
 
 
             if s != n_states+2:
