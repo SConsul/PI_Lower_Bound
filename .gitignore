@@ -4,3 +4,4 @@
 ./code/actualMDP
 *__pycache__*
 *.pyc
+*a.out
