@@ -5,16 +5,28 @@ from utils import calculate_value_function, calculate_Q_matrix, Reverse
 def solve_hpi(num_states, num_actions, reward_function, transition_function, discount_factor, type_mdp):
     #Choose random Policy to begin the iteration
     num_iterations = 0
-    S = int((num_states-2)/2)
     optimized = False
     policy = [0] * num_states  # Initialization
     while(optimized == False):
+        print("Current policy is : {}".format(policy))
         value_function = calculate_value_function(
             policy, num_states, num_actions, transition_function, reward_function, discount_factor)
         Q_matrix = calculate_Q_matrix(num_states, num_actions, reward_function,
                                       transition_function, value_function, discount_factor, type_mdp)
-        next_policy = list(Q_matrix.argmax(axis=1))
-        print("Current:", policy, "Next: ", next_policy)
+        
+        next_policy = []
+        improvables = []
+        for it in range(num_states):
+            col = np.squeeze(Q_matrix[it, :])
+            if sum(col < col[policy[it]])>0:
+                imp_action = np.flatnonzero(col < col[policy[it]])[0]
+                improvables.append(True)
+            else:
+                imp_action = policy[it]
+                improvables.append(False)
+            next_policy.append(imp_action)
+        
+        print("Current:", policy, "Next: ", next_policy, "Improvables: ", improvables)
         if policy == next_policy:
             optimized = True
         else:
@@ -23,14 +35,4 @@ def solve_hpi(num_states, num_actions, reward_function, transition_function, dis
     #Printing Final Answer
     for iter in range(num_states):
         print(str(np.asscalar(value_function[iter])) + " " + str(policy[iter]))
-        # vfcn = Reverse(value_function.reshape(-1).tolist())
-        # vfcn_top = vfcn[0:S]
-        # vfcn_top.append(vfcn[-1])
-        # # vfcn_bottom = vfcn[S:-1]
-        # p = Reverse(policy)
-        # p_top = p[0:S]
-        # p_top.append(p[-1])
-        # # p_bottom = p[S:-1]
-        # print("Current:", p_top, "Value function:", vfcn_top)
-        # print("        ", p_bottom, "               ", vfcn_bottom)
     print("Total Number of Iterations: "+str(num_iterations))
