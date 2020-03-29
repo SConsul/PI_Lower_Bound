@@ -230,7 +230,7 @@ int main(int argc, char * argv[])
 	// cout<<numSelected<<" "<<allEdgeConfigurations.size()<<endl;
 
 
-	int longestPath = 0, count = 0;
+	int longestPath = 0, count = 0, bestIndex = -1;
 	for (int i = 0 ; i < allEdgeConfigurations.size() ; i ++)
 	{
 		vector<vector<bool> > transitions = convertToTransitionMatrix(allEdgeConfigurations[i]);
@@ -238,12 +238,24 @@ int main(int argc, char * argv[])
 		{
 			count ++;
 			int current = findLongestPath(transitions);
-			cout<<i<<" "<<longestPath<<" "<<current<<endl;
-			longestPath = max(longestPath, current);
-		}
-		if (i % 10000 == 1)
-			cout<<i<<' '<<count<<' '<<longestPath<<endl;
+			// cout<<i<<" "<<longestPath<<" "<<current<<endl;
+			if (current > longestPath)
+			{
+				bestIndex = i;
+				longestPath = current;
+			}
+			if (current == 8)
+			{
+				print(transitions);
+				cout<<"-------------------------------------------------------------\n";
+			}
+		}	
+		// if (i % 10000 == 1)
+		// 	cout<<i<<' '<<count<<' '<<longestPath<<endl;
 	}
+	cout<<"-----------------\n";
+	print(allEdgeConfigurations[bestIndex]);
+	cout<<longestPath<<endl;
 
 	return 0;
 }
