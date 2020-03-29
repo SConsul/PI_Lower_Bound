@@ -2,3 +2,6 @@
 ./code/tempHowardMDPdumper.py
 ./code/tempMDP
 ./code/actualMDP
+*__pycache__*
+*.pyc
+*a.out
