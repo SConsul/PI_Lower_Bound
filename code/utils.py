@@ -53,10 +53,9 @@ def calculate_value_function(policy, num_states, num_actions, transition_functio
                                                          ][col]*reward_function[row][policy[row]][col]
         rhs_vector[row] = rhs_val
     if discount_factor == 1.0:
-        coeff_matrix_truncated = coeff_matrix[2:, 2:]
-        value_function[2:] = np.matmul(np.linalg.inv(coeff_matrix_truncated), rhs_vector[2:])
-        value_function[0] = 0
-        value_function[1] = 0
+        coeff_matrix_truncated = coeff_matrix[:-1, :-1]
+        value_function[:-1] = np.matmul(np.linalg.inv(coeff_matrix_truncated), rhs_vector[:-1])
+        value_function[-1] = 0
     else:
         value_function = np.matmul(np.linalg.inv(coeff_matrix), rhs_vector)
 
