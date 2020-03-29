@@ -1,0 +1,3 @@
+In this directory, there is code which generates all the graphs for 2 state 3 action MDPs and then checks the property that the outmap is a permutation of the states themselves. Then find if there exists a hamiltonian path for each of these graphs
+
+The graph is encoded by 0 and 1 indicating if the direction of edgei is from ui to vi, where edgei is defined in another file "edges_<n>_<k>.txt" as ui vi. This is done since we just consider edges between policies that differ only at one state. This is manually made as of now
