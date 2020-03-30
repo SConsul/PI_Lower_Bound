@@ -22,6 +22,7 @@ for n_actions in range(2, 11):
         # n_states = 4
         S = 2*n_states+2
         A = n_actions
+        epsilon = 2**(-n_states)
         R = np.zeros((S, A, S))
         T = np.zeros((S, A, S))
 
@@ -44,7 +45,7 @@ for n_actions in range(2, 11):
 
         # Main states setting
         p = np.linspace(0, n_actions-1, n_actions)
-        p[1:]+=1 # So that probabilities for action > 1 start from 1/4
+        #p[1:]+=1 # So that probabilities for action > 1 start from 1/4
         p = -1*p
         p = pow(2, p)  # Geometric probabilities
         T[n_states+2][0][0] = 1
@@ -54,7 +55,7 @@ for n_actions in range(2, 11):
             T[n_states+2][a][2] = 1
             #T[n_states+2][a][0] = 1-p[a-1]
             #Decrease rewards as a increases
-            R[n_states+2][a][2] = p[a-1]*10e-5
+            R[n_states+2][a][2] = p[a-1]*epsilon
             
         for s in range(n_states+3, S):
             for a in range(1, n_actions):
@@ -63,7 +64,7 @@ for n_actions in range(2, 11):
                 #sPrime = s-1
                 T[s][a][sPrime] = 1
                 #Decrease rewards as a increases
-                R[s][a][sPrime] = p[a-1]*10e-5
+                R[s][a][sPrime] = p[a-1]*epsilon
 
 
             if s != n_states+2:
