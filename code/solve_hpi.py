@@ -8,18 +8,16 @@ def solve_hpi(num_states, num_actions, reward_function, transition_function, dis
     optimized = False
     policy = [0] * num_states  # Initialization
     while(optimized == False):
-        print("Current policy is : {}".format(policy))
         value_function = calculate_value_function(
             policy, num_states, num_actions, transition_function, reward_function, discount_factor)
         Q_matrix = calculate_Q_matrix(num_states, num_actions, reward_function,
                                       transition_function, value_function, discount_factor, type_mdp)
-        
         next_policy = []
         improvables = []
         for it in range(num_states):
             col = np.squeeze(Q_matrix[it, :])
-            if sum(col < col[policy[it]])>0:
-                imp_action = np.flatnonzero(col < col[policy[it]])[0]
+            if sum(col > col[policy[it]])>0:
+                imp_action = np.flatnonzero(col > col[policy[it]])[0]
                 improvables.append(True)
             else:
                 imp_action = policy[it]
